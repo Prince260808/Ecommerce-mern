@@ -1,9 +1,6 @@
 import Cart from "../models/Cart.js";
 import mongoose from "mongoose";
 
-/* =========================
-   ADD TO CART (FIXED – ATOMIC)
-========================= */
 export const addToCart = async (req, res) => {
   try {
     const { userId, productId, quantity = 1 } = req.body;
@@ -50,9 +47,6 @@ export const addToCart = async (req, res) => {
   }
 };
 
-/* =========================
-   REMOVE ITEM (FIXED)
-========================= */
 export const removeItem = async (req, res) => {
   try {
     const { userId, productId } = req.body;
@@ -81,9 +75,7 @@ export const removeItem = async (req, res) => {
   }
 };
 
-/* =========================
-   UPDATE QUANTITY (FIXED)
-========================= */
+
 export const updateQuantity = async (req, res) => {
   try {
     const { userId, productId, quantity } = req.body;
@@ -127,9 +119,6 @@ export const updateQuantity = async (req, res) => {
   }
 };
 
-/* =========================
-   GET CART
-========================= */
 export const getCart = async (req, res) => {
   try {
     const { userId } = req.params;
