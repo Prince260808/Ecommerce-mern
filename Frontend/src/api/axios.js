@@ -1,11 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://mern-ecommerce-hxvb.onrender.com/api",
+  baseURL: "https://my-ecommerce-qcw9.onrender.com/api", // new backend URL
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 export default api;
-
