@@ -24,7 +24,7 @@ export default function Checkout() {
     api.get(`/address/${userId}`)
       .then((res) => {
         setAddresses(res.data);
-        if (res.data.length > 0) setSelectedAddress(res.data[0]); // default address
+        if (res.data.length > 0) setSelectedAddress(res.data[0]); 
       })
       .catch((err) => console.error("ADDRESS FETCH ERROR:", err));
   }, [userId, navigate]);

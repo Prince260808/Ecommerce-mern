@@ -30,7 +30,7 @@ export default function Home() {
 
     if (activeCategory) {
       data = data.filter(
-        (p) => p.category?.toLowerCase() === activeCategory.toLowerCase()
+        (p) => p.title?.toLowerCase() === activeCategory.toLowerCase()
       );
     }
 
@@ -38,8 +38,8 @@ export default function Home() {
       const q = search.toLowerCase();
       data = data.filter(
         (p) =>
-          p.category.toLowerCase().includes(q) ||
-          p.category?.toLowerCase().includes(q)
+          p.title.toLowerCase().includes(q) ||
+          p.title?.toLowerCase().includes(q)
       );
     }
 
