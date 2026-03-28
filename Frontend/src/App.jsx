@@ -6,6 +6,12 @@ import ProductDetails from "./pages/ProductDetails";
 import AddProduct from "./admin/AddProduct";
 import EditProduct from "./admin/EditProduct";
 import ProductList from "./admin/ProductList";
+import AdminDashboard from "./admin/AdminDashboard";
+import AdminLayout from "./admin/AdminLayout";
+import Orders from "./admin/Orders";
+import Customers from "./admin/Customers";
+import Analytics from "./admin/Analytics";
+import Settings from "./admin/Settings";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cart from "./pages/Cart";
@@ -18,7 +24,7 @@ function Layout() {
     <>
       <Navbar />
       <Outlet />
-      <Footer/>
+      <Footer />
     </>
   );
 }
@@ -31,21 +37,27 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
       { path: "/product/:id", element: <ProductDetails /> },
-
-      // Cart
       { path: "/cart", element: <Cart /> },
-
-      // Admin
-      { path: "/admin/products", element: <ProductList /> },
-      { path: "/admin/products/add", element: <AddProduct /> },
-      { path: "/admin/products/update/:id", element: <EditProduct /> },
-      { path: "/checkout-address", element: <CheckoutAddress/>},
-      { path: "/checkout", element: <Checkout/>},
-      {path: "/order-success/:id", element: <OrderSuccess/>},
-
-      { path: "*", element: <h1>Page Not Found</h1> }
-    ]
-  }
+      { path: "/checkout-address", element: <CheckoutAddress /> },
+      { path: "/checkout", element: <Checkout /> },
+      { path: "/order-success/:id", element: <OrderSuccess /> },
+      { path: "*", element: <h1 className="text-center py-20 text-2xl font-bold text-gray-500">Page Not Found</h1> },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      { index: true, element: <AdminDashboard /> },
+      { path: "products", element: <ProductList /> },
+      { path: "products/add", element: <AddProduct /> },
+      { path: "products/update/:id", element: <EditProduct /> },
+      { path: "orders", element: <Orders /> },
+      { path: "customers", element: <Customers /> },
+      { path: "analytics", element: <Analytics /> },
+      { path: "settings", element: <Settings /> },
+    ],
+  },
 ]);
 
 export default function App() {

@@ -1,0 +1,168 @@
+import { useState } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  FiGrid, FiPackage, FiPlusCircle, FiShoppingCart,
+  FiUsers, FiSettings, FiLogOut, FiMenu, FiX,
+  FiTrendingUp, FiChevronRight, FiBell
+} from "react-icons/fi";
+
+const navItems = [
+  { icon: FiGrid, label: "Dashboard", to: "/admin" },
+  { icon: FiPackage, label: "Products", to: "/admin/products" },
+  { icon: FiPlusCircle, label: "Add Product", to: "/admin/products/add" },
+  { icon: FiShoppingCart, label: "Orders", to: "/admin/orders" },
+  { icon: FiUsers, label: "Customers", to: "/admin/customers" },
+  { icon: FiTrendingUp, label: "Analytics", to: "/admin/analytics" },
+  { icon: FiSettings, label: "Settings", to: "/admin/settings" },
+];
+
+export default function AdminLayout() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
+  const isActive = (path) =>
+    path === "/admin"
+      ? location.pathname === "/admin"
+      : location.pathname.startsWith(path) && path !== "/admin";
+
+  return (
+    <div className="min-h-screen bg-[#f4f6fb] flex font-sans">
+      {/* Sidebar Overlay (mobile) */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-30 lg:hidden backdrop-blur-sm"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`fixed top-0 left-0 h-full w-64 bg-[#0f172a] z-40 flex flex-col
+          transform transition-transform duration-300 ease-in-out
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+      >
+        {/* Logo */}
+        <div className="flex items-center justify-between px-6 h-16 border-b border-white/10">
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg">
+              <FiShoppingCart className="text-white text-sm" />
+            </div>
+            <div>
+              <span className="text-white font-bold text-base tracking-tight">Gupta</span>
+              <span className="text-indigo-400 font-bold text-base">Store</span>
+            </div>
+          </Link>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="lg:hidden text-gray-400 hover:text-white"
+          >
+            <FiX />
+          </button>
+        </div>
+
+        {/* Admin Badge */}
+        <div className="px-4 py-3">
+          <div className="bg-white/5 rounded-xl px-3 py-2.5 flex items-center gap-3 border border-white/10">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-sm shadow">
+              A
+            </div>
+            <div>
+              <p className="text-white text-sm font-semibold">Admin Panel</p>
+              <p className="text-gray-400 text-xs">Super Administrator</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 px-4 py-2 space-y-0.5 overflow-y-auto">
+          <p className="text-gray-500 text-xs font-semibold uppercase tracking-widest px-3 py-2 mt-2">
+            Main Menu
+          </p>
+          {navItems.map(({ icon: Icon, label, to }) => (
+            <Link
+              key={to}
+              to={to}
+              onClick={() => setSidebarOpen(false)}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+                transition-all duration-200 group relative
+                ${isActive(to)
+                  ? "bg-indigo-600 text-white shadow-lg shadow-indigo-900/50"
+                  : "text-gray-400 hover:bg-white/5 hover:text-white"
+                }`}
+            >
+              <Icon className={`text-base flex-shrink-0 ${isActive(to) ? "text-white" : "text-gray-500 group-hover:text-indigo-400"}`} />
+              <span>{label}</span>
+              {isActive(to) && (
+                <FiChevronRight className="ml-auto text-indigo-300 text-xs" />
+              )}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Logout */}
+        <div className="px-4 pb-5 border-t border-white/10 pt-4">
+          <button
+            onClick={logout}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl
+              text-gray-400 hover:bg-red-500/10 hover:text-red-400
+              transition-all duration-200 text-sm font-medium"
+          >
+            <FiLogOut />
+            <span>Logout</span>
+          </button>
+          <Link
+            to="/"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl
+              text-gray-400 hover:bg-white/5 hover:text-white
+              transition-all duration-200 text-sm font-medium mt-1"
+          >
+            <FiShoppingCart />
+            <span>View Store</span>
+          </Link>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col lg:ml-64 min-h-screen">
+        {/* Top Bar */}
+        <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-xl border-b border-gray-200/80 shadow-sm">
+          <div className="flex items-center justify-between h-16 px-4 sm:px-6">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden p-2 rounded-xl hover:bg-gray-100 text-gray-600 transition"
+            >
+              <FiMenu className="text-xl" />
+            </button>
+            <div className="hidden sm:flex items-center gap-2 text-sm text-gray-500">
+              <span className="text-gray-400">Admin</span>
+              <FiChevronRight className="text-xs" />
+              <span className="text-gray-800 font-medium capitalize">
+                {location.pathname.split("/").filter(Boolean).pop() || "Dashboard"}
+              </span>
+            </div>
+            <div className="ml-auto flex items-center gap-3">
+              <button className="relative p-2 rounded-xl hover:bg-gray-100 text-gray-600 transition">
+                <FiBell className="text-xl" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-indigo-500"></span>
+              </button>
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
+                A
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Page Content */}
+        <main className="flex-1 p-4 sm:p-6">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+}

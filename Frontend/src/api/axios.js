@@ -1,10 +1,25 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://my-ecommerce-qcw9.onrender.com/api", // new backend URL
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL: import.meta.env.VITE_API_URL || "https://my-ecommerce-qcw9.onrender.com/api",
+  headers: { "Content-Type": "application/json" },
 });
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+api.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err.response?.status === 401) {
+      localStorage.clear();
+      window.location.href = "/login";
+    }
+    return Promise.reject(err);
+  }
+);
 
 export default api;
