@@ -33,7 +33,7 @@ export default function Signup() {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setLoading(true);
     try {
-      await api.post("/auth/register", {
+      await api.post("/auth/signup", {
         name: form.name, email: form.email, password: form.password,
       });
       setSuccess(true);
