@@ -10,7 +10,7 @@ import {
 // Animated number counter
 function CountUp({ end, prefix = "", suffix = "", duration = 1500 }) {
   const [count, setCount] = useState(0);
-  useEffect(() => {
+  useEffect(() => { 
     let start = 0;
     const step = end / (duration / 16);
     const timer = setInterval(() => {

@@ -49,15 +49,61 @@ export default function AdminLayout() {
       >
         {/* Logo */}
         <div className="flex items-center justify-between px-6 h-16 border-b border-white/10">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg">
-              <FiShoppingCart className="text-white text-sm" />
-            </div>
-            <div>
-              <span className="text-white font-bold text-base tracking-tight">Gupta</span>
-              <span className="text-indigo-400 font-bold text-base">Store</span>
-            </div>
-          </Link>
+        <Link to="/" className="flex items-center gap-2 flex-shrink-0">
+
+{/* Badge icon */}
+<div
+  style={{ borderRadius: 10, background: "#3730A3" }}
+  className="w-9 h-9 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+>
+  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+    {/* Phone shell */}
+    <rect x="11" y="5" width="14" height="24" rx="3" fill="#312E81" />
+    {/* Screen */}
+    <rect x="13" y="8" width="10" height="16" rx="1.5" fill="#818CF8" />
+    {/* Camera dot */}
+    <circle cx="18" cy="7" r="1" fill="#3730A3" />
+    {/* Home bar */}
+    <rect x="15" y="27" width="6" height="1.2" rx="0.6" fill="#3730A3" />
+    {/* Lightning bolt */}
+    <polygon points="22,17 19.5,22 21.5,22 19,27 24,21 21.5,21" fill="#C7D2FE" />
+  </svg>
+</div>
+
+{/* Wordmark */}
+<div className="flex flex-col gap-0.5">
+  <span
+    style={{
+      fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+      fontWeight: 800,
+      fontSize: 20,
+      letterSpacing: "-0.04em",
+      lineHeight: 1,
+    }}
+  >
+    <span style={{ color: "#1E1B4B" }}></span>
+    <span
+      style={{
+        display: "inline-block",
+        width: 5,
+        height: 5,
+        borderRadius: "50%",
+        background: "#818CF8",
+        marginBottom: 6,
+        verticalAlign: "bottom",
+      }}
+    />
+    <span style={{ color: "#4338CA" }}>Buy-Ease</span>
+  </span>
+
+  {/* Two-tone underline bar */}
+  <div className="flex h-0.5 w-full overflow-hidden" style={{ borderRadius: 1 }}>
+    <div className="flex-1" style={{ background: "#1E1B4B" }} />
+    <div className="flex-1" style={{ background: "#4338CA" }} />
+  </div>
+</div>
+
+</Link>
           <button
             onClick={() => setSidebarOpen(false)}
             className="lg:hidden text-gray-400 hover:text-white"
