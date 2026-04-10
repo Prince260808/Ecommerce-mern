@@ -7,6 +7,8 @@ import productRoutes from "./routes/productsRoutes.js";
 import cartRoutes from './routes/cartRoutes.js'
 import addressRoutes from './routes/addressRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
+import paymentRoutes from './routes/paymentRoutes.js'
+import Razorpay from "razorpay";
 
 dotenv.config();
 
@@ -24,6 +26,7 @@ app.use("/api/products",productRoutes);
 app.use("/api/cart",cartRoutes);
 app.use("/api/address", addressRoutes);
 app.use("/api/order",orderRoutes);
+app.use("/api/payment", paymentRoutes);
 
 app.get("/", (req, res) => {
     res.send("API is running");
@@ -32,6 +35,12 @@ app.get("/", (req, res) => {
 connectDB();
 
 const PORT = process.env.PORT || 5001;
+
+export const instance = new Razorpay({
+  key_id: process.env.RAZORPAY_API_KEY,
+  key_secret: process.env.RAZORPAY_SECRET_KEY,
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
